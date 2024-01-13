@@ -1,6 +1,16 @@
 Q: https://www.desiqna.in/14025/de-shaw-coding-oa-solution-july-2023-sde1-38-lac-ctc 
 
 
+C:\Users\mi\Downloads
+
+
+
+
+
+
+
+
+
 Given an array arr of size n which contain all integer from 1 to n,and an integer k. Find the kth smallest MEX of a subarray of the array.
 That is the list containing all MEX, return the kth smallest MEX.
 
