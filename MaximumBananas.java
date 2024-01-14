@@ -79,3 +79,70 @@ public class OA {
         return max;
     }
   }
+
+
+Approch - 2 (recursion + memo)
+  import java.util.*;
+public class OA {
+
+static int dp[][][];
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        //int k=sc.nextInt();
+         int a[]={4, 5, 1, 2, 10};
+         int b[]={9, 7, 3, 20, 16};
+         int c[]={6, 12, 13, 9, 8};
+        int list[][]=new int[a.length][3];
+        for(int i=0;i<a.length;i++){
+            list[i][0]=a[i];
+            list[i][1]=b[i];
+            list[i][2]=c[i];
+        }
+
+        int k=2;
+        dp=new int[list.length+5][3][k+1];
+        for(int i=0;i<dp.length;i++){
+            for(int j=0;j<dp[0].length;j++){
+                Arrays.fill(dp[i][j],-1);
+            }
+        }
+        int ans=0;
+
+        ans=Math.max(ans,solve(0,0,k,list));
+        //System.out.println(ans);
+        ans=Math.max(ans,solve(1,0,k,list));
+        //System.out.println(ans);
+        ans=Math.max(ans,solve(2,0,k,list));
+
+        System.out.println("Ans ="+ans);
+    }
+
+    static int solve(int col,int ind,int k,int list[][]){
+        int max=0;
+        int cur=0;
+        if(dp[ind][col][k]!=-1)return dp[ind][col][k];
+
+        for(int i=ind;i<list.length;i++){
+            cur+=list[i][col];
+            //System.out.println("cur "+cur);
+            if(k>0){
+                int not_change=cur+solve(col,i+1,k,list);
+                int change=0;
+                if(col!=0){
+                    change=Math.max(change,cur+solve(0,i+1,k-1,list));
+                }
+                if(col!=1){
+                    change=Math.max(change,cur+solve(1,i+1,k-1,list));
+                }
+                if(col!=2){
+                    change=Math.max(change,cur+solve(2,i+1,k-1,list));
+                }
+                max=Math.max(max,Math.max(not_change,change));
+            }
+            max=Math.max(max,cur);
+
+        }
+        return dp[ind][col][k]=max;
+    }
+}
