@@ -1,0 +1,31 @@
+Q: Valid Permutations
+
+time :(n!)
+
+//backtracking + pruning
+
+
+public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int t=sc.nextInt();
+        solve(t);
+    }
+    static void solve(int n){
+        boolean visited[]=new boolean[n+1];
+        System.out.println(backtracck(n,1,visited));//number, position in permutation array, number used array
+    }
+
+    private static int backtracck(int n, int position, boolean[] visited) {
+        if(position>n){//we have placed all number and get a valid permutation
+            return 1;
+        }
+        int valid_count=0;
+        for(int i=1;i<=n;i++){
+            if(visited[i]==false && (i%position==0 || position%i==0)){
+                visited[i]=true;
+                valid_count+=backtracck(n,position+1,visited);
+                visited[i]=false;
+            }
+        }
+        return valid_count;
+    }
